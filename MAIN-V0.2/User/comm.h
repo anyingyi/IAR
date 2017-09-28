@@ -21,7 +21,7 @@
 #define WIFI_UP    		0         //对上通信
 #define PM25_DOWN     	1         //PM2.5传感器通信
 
-typedef int  (*usartfunc)(unsigned char*,unsigned char);
+typedef int  (*usartfunc)(unsigned char*,unsigned char);//函数指针
 
 typedef struct Mod_Chk_t
 {

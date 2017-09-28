@@ -23,10 +23,12 @@ void Usart_Init(void)
     USART_InitTypeDef USART_InitStructure;
     USART_ClockInitTypeDef USART_ClockInitStructure;
     //波特率
-    USART_TypeDef* USARTx[USART_MAX] = {USART1,USART2};
+	
+    USART_TypeDef* USARTx[USART_MAX] = {USART1,USART2};//............////
+	
     for( i = 0; i < USART_MAX; i++ )
     {
-        USART_DeInit( USARTx[i] );
+        USART_DeInit( USARTx[i] );//将外设 USARTx 寄存器重设为缺省值
 		if( i == 0 )  //对上网络通信
 		  	USART_InitStructure.USART_BaudRate = 9600;  //net通讯波特率
         else

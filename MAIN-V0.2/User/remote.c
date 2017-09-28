@@ -83,7 +83,7 @@ unsigned char remote_analyze( unsigned int keycode )
     //1.²éÑ¯°´¼üĞòºÅ
     for( i = 0; i < 6; i++ )
     {
-        if( keycode == m_SetData.keycode[i] )
+        if( keycode == m_SetData.keycode[i] ) //°´¼üÂë
         {
             key = i+1;
             break;

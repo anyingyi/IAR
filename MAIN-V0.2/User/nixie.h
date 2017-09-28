@@ -14,7 +14,7 @@
 #include "tm1650.h"
 
 //显存地址
-#define ADDR_DIG1   0x68
+#define ADDR_DIG1   0x68//第一个数码管
 #define ADDR_DIG2   0x6A
 #define ADDR_DIG3   0x6C
 #define ADDR_DIG4   0x6E

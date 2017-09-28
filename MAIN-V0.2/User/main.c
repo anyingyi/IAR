@@ -49,11 +49,11 @@ int main( void )
     //0.5.时钟初始化
     Timx_Configuration();
     //0.6.AD初始化
-    //Adc_Init();
+    Adc_Init();
     //0.7.RTC秒时钟初始化
     //rtc_init();
     //0.8.数据初始化
-    //Data_Init(0);
+    Data_Init(0);
     //0.9.串口初始化
     Usart_Init();
     //0.10.串口通讯初始化
@@ -193,9 +193,9 @@ void NVIC_Configuration(void)
     NVIC_InitTypeDef NVIC_InitStructure;
     //中断向量表
 #ifdef  VECT_TAB_RAM
-	NVIC_SetVectorTable(NVIC_VectTab_RAM, 0x0);
+	NVIC_SetVectorTable(NVIC_VectTab_RAM, 0x0);//向量表位于 RAM
 #else
-	NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0000);
+	NVIC_SetVectorTable(NVIC_VectTab_FLASH, 0x0000);//向量表位于 FLASH
 #endif
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0); //抢占式优先级别设置为无抢占优先级
     //中断设置  

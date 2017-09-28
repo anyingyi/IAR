@@ -44,11 +44,11 @@ void light_process(void)
         
         if( m_DevData.lightvalue < (THD_LIGHT+WAVE_LIGHT) )
         {
-            m_DevData.lightonoff = 1;
+            m_DevData.lightonoff = 1;//°×Ìì
         }
         else if( m_DevData.lightvalue > (THD_LIGHT-WAVE_LIGHT))
         {
-            m_DevData.lightonoff = 0;
+            m_DevData.lightonoff = 0;//ºÚÒ¹
         }
     }
 }

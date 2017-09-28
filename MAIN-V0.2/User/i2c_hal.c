@@ -17,9 +17,13 @@
 //-- Defines -------------------------------------------------------------------
 //NIXIE
 // SDA on port B, bit11 bit8
-#define SDA_LOW(m)  	(GPIOB->BSRR = m?0x01000000:0x08000000) // set SDA to low
-#define SDA_OPEN(m) 	(GPIOB->BSRR = m?0x00000100:0x00000800) // set SDA to open-drain
+
+//置GPIOD->BSRR高16位的某位为'1'，则对应的I/O端口置'0'；而置GPIOD->BSRR高16位的某位为'0'，则对应的I/O端口不变。
+//置GPIOD->BSRR低16位的某位为'1'，则对应的I/O端口置'1'；而置GPIOD->BSRR低16位的某位为'0'，则对应的I/O端口不变。0X00000040对应PA6
+#define SDA_LOW(m)  	(GPIOB->BSRR = m?0x01000000:0x08000000) // set SDA to low//时钟clk输出 //端口设置和清除寄存器-BSRR
+#define SDA_OPEN(m) 	(GPIOB->BSRR = m?0x00000100:0x00000800) // set SDA to open-drain //数据data读取 	//端口输入数据这些位为只读并只能以字(16位)的形式读出。读出的值为对应I/O口的状态
 #define SDA_READ(m)   	(GPIOB->IDR & (m?0x0100:0x0800))     // read SDA
+//这些位为只读并只能以字(16位)的形式读出。读出的值为对应I/O口的状态.0X0020对应PA5
 
 // SCL on port B, bit7 bit9            /* -- adapt the defines for your uC -- */
 #define SCL_LOW(m)  	(GPIOB->BSRR = m?0x02000000:0x04000000) // set SCL to low
@@ -92,8 +96,8 @@ etError I2c_WriteByte( unsigned char sensor, unsigned char txByte ){
 	SDA_OPEN(sensor);                           // release SDA-line
 	SCL_OPEN(sensor);                           // clk #9 for ack
 	DelayMicroSeconds(1);                 // data set-up time (t_SU;DAT)
-	if(SDA_READ(sensor)) error = ACK_ERROR;       // check ack from i2c slave
-	SCL_LOW(sensor);
+	SCL_LOW(sensor);	if(SDA_READ(sensor)) error = ACK_ERROR;       // check ack from i2c slave
+
 	DelayMicroSeconds(10);                // wait to see byte package on scope
 	return error;                         // return error code
 }

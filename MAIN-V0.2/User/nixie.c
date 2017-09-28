@@ -27,6 +27,7 @@ typedef struct CNIXIE_t
     unsigned short  blinktime;      //闪烁时间
     unsigned char   brightness;     //数码显示亮度:0-7:表示1级-8级
     unsigned char   prebrightness;  //上一次亮度
+	
     unsigned char   disbuf[3];      //数码显示缓存
     unsigned char   olddisbuf[3];   //数码显示缓存备份
 }CNIXIE;
@@ -99,8 +100,8 @@ const unsigned char m_NixieCode[38] =
 
 
 /*******************************************************************************
-* 函数名称  : display_cmp
-* 描    述  : 显示缓存比较
+* 函数名称  : display_
+* 描    述cmp  : 显示缓存比较
 * 输    入  : str1:缓存1，str2:缓存2，len:比较长度
 * 输    出  : None
 * 返    回  : 0:表示不一样，1:表示一样
@@ -187,7 +188,7 @@ unsigned char nixie_getcode(unsigned char ascii )
 }
 
 /*******************************************************************************
-* 函数名称  : nixie_display
+* 函数名称  : niexie_write
 * 描    述  : 
 * 输    入  : None
 * 输    出  : None

@@ -3,8 +3,8 @@
 
 #include "stm32f10x.h"
 
-#define ADC_CHNUM       1
-#define ADC_SAMPLE      10
+#define ADC_CHNUM       1  //ADC转换通道数目
+#define ADC_SAMPLE      10//ADC采样次数
 //#define ADC_CNT     250
 //#define ADC1_DR_Address    ((uint32_t)0x4001244C)
 

@@ -220,7 +220,7 @@ void TIM1_UP_IRQHandler(void)
  * @结果 无
  *
  -----------------------------------------------------------------------------*/
-void TIM2_IRQHandler(void)
+void TIM2_IRQHandler(void)//io口输出高低产生波形，驱动无源蜂鸣器
 {
 	if( TIM_GetITStatus( TIM2, TIM_IT_Update ) != RESET )
 	{
@@ -253,8 +253,8 @@ void TIM4_IRQHandler(void)
         //1.清除中断标志位
         TIM_ClearITPendingBit( TIM4, TIM_IT_CC1 );
         //2.获取计数器数值
-        cap1 = TIM_GetCapture1(TIM4);
-        cap2 = TIM_GetCapture2(TIM4);
+        cap1 = TIM_GetCapture1(TIM4);//Gets the TIMx Input Capture 1 value.
+        cap2 = TIM_GetCapture2(TIM4);//Gets the TIMx Input Capture 2 value.
         //3.同步信号
         if( ((cap1 > 9800) && (cap1 < 9950)) && 
             ((cap2 > 300 ) && (cap2 < 450 )))

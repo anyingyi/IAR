@@ -13,9 +13,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 
-#define USART_MAX		2
+#define USART_MAX		2  //串口个数
 
-#define USART1_RECV_MAX 512
+#define USART1_RECV_MAX 512   //串口接收的最大数512
 #define USART2_RECV_MAX 100
 
 //串口收发控制

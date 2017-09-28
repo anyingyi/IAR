@@ -1,5 +1,5 @@
 [DebugChecksum]
-Checksum=1596764403
+Checksum=1003078098
 [DisAssemblyWindow]
 NumStates=_ 1
 State 1=_ 1
@@ -43,6 +43,18 @@ SWOInfo_ITMPortsEnabled=0x00000000
 SWOInfo_ITMPortsTermIO=0x00000000
 SWOInfo_ITMPortsLogFile=0x00000000
 SWOInfo_ITMLogFile=$PROJ_DIR$\ITM.log
+[Interrupts]
+Enabled=1
+[MemoryMap]
+Enabled=0
+Base=0
+UseAuto=0
+TypeViolation=1
+UnspecRange=1
+ActionState=1
+[TraceHelper]
+Enabled=0
+ShowSource=1
 [Stack]
 FillEnabled=0
 OverflowWarningsEnabled=1
@@ -53,6 +65,15 @@ UseTrigger=1
 TriggerName=main
 LimitSize=0
 ByteLimit=50
+[Breakpoints2]
+Count=0
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
 [DataLog]
 LogEnabled=0
 SumEnabled=0
@@ -68,38 +89,20 @@ SumSortOrder=0
 [TraceHelperExtra]
 Enabled=0
 ShowSource=1
-[Breakpoints2]
-Count=0
-[Log file]
-LoggingEnabled=_ 0
-LogFile=_ ""
-Category=_ 0
-[TermIOLog]
-LoggingEnabled=_ 0
-LogFile=_ ""
 [DriverProfiling]
 Enabled=0
-Source=1
+Source=4
 Graph=0
 [Disassemble mode]
 mode=0
 [Breakpoints]
-Bp0=_ "STD_CODE" "{C:\Windows\System32}.127.4@1" 0 0 0 0 "" 0 ""
+Bp0=_ "STD_CODE" "{C:\Windows\System32}.127.4@1" 0 0 0 0 "" 0 "" 0
 Count=1
-[Interrupts]
-Enabled=1
-[MemoryMap]
-Enabled=0
-Base=0
-UseAuto=0
-TypeViolation=1
-UnspecRange=1
-ActionState=1
 [Aliases]
-A0=_ "E:\公司资料\家用新风\【1】项目文件\【2】2017项目\【12】惠而浦项目\【4】软件设计\【1】线控器软件设计\V1.1\MAIN-V0.01\User\fanctrl.c" ""
-A1=_ "E:\公司资料\家用新风\【1】项目文件\【2】2017项目\【12】惠而浦项目\【4】软件设计\【1】线控器软件设计\V1.1\MAIN-V0.01\User\main.c" ""
-Count=2
-SuppressDialog=0
-[TraceHelper]
-Enabled=0
-ShowSource=1
+A0=_ "C:\Users\FAR\Desktop\MAIN-V0.2\User\main.c" ""
+A1=_ "E:\公司资料\家用新风\【1】项目文件\【2】2017项目\【12】惠而浦项目\【4】软件设计\【1】线控器软件设计\V1.1\MAIN-V0.01\User\fanctrl.c" ""
+A2=_ "E:\公司资料\家用新风\【1】项目文件\【2】2017项目\【12】惠而浦项目\【4】软件设计\【1】线控器软件设计\V1.1\MAIN-V0.01\User\main.c" ""
+A3=_ "E:\公司资料\家用新风\【1】项目文件\【2】2017项目\【7】室内挂机（IX0）项目\【1】IX0研发文件\【4】软件设计\MAIN-V0.2\User\comm.c" ""
+A4=_ "E:\公司资料\家用新风\【1】项目文件\【2】2017项目\【7】室内挂机（IX0）项目\【1】IX0研发文件\【4】软件设计\MAIN-V0.2\User\main.c" ""
+Count=5
+SuppressDialog=1

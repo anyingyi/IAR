@@ -38,7 +38,7 @@ void Adc_Init(void)
     ADC_InitStructure.ADC_NbrOfChannel = ADC_CHNUM;
     ADC_Init(ADC1, &ADC_InitStructure);
     /* ADC1 regular channel14 configuration */ 
-    ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_55Cycles5);
+    ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_55Cycles5);//PA0---PA0connect to lignt
     /* Enable ADC1 */
     ADC_Cmd(ADC1, ENABLE);
     /* Enable ADC1 reset calibration register */   

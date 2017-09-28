@@ -34,9 +34,11 @@ typedef struct CBUZZER_TIME_t
 {
     unsigned char   onoff;          //BUZZER状态:0x00-不响,0x01-响
     unsigned char   musicid;        //BUZZER谱序号
+	
     unsigned char   fonoff;         //BUZZER状态:0x00-不响,0x01-响
     unsigned char   findex;         //BUZZER频率索引
     unsigned short  ftime;          //BUZZER频率持续时间
+	
     unsigned char   vonoff;         //BUZZER电压开关标志
     unsigned char   vindex;         //BUZZER电压索引
     unsigned short  vtime;          //BUZZER电压控制时间  

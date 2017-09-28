@@ -12,10 +12,10 @@
 #include "touch.h"
 #include "data.h"
 #include "ledctrl.h"
-
-#define CLK_WRITE(m)	(GPIOA->BSRR = m?0x00000040:0x00400000) //时钟clk输出
-#define DATA_READ		(GPIOA->IDR&0x0020)  //数据data读取 	
-
+//置GPIOD->BSRR低16位的某位为'1'，则对应的I/O端口置'1'；而置GPIOD->BSRR低16位的某位为'0'，则对应的I/O端口不变。0X00000040对应PA6
+#define CLK_WRITE(m)	(GPIOA->BSRR = m?0x00000040:0x00400000) //时钟clk输出 //端口设置和清除寄存器-BSRR
+#define DATA_READ		(GPIOA->IDR&0x0020)  //数据data读取 	//端口输入数据这些位为只读并只能以字(16位)的形式读出。读出的值为对应I/O口的状态
+//这些位为只读并只能以字(16位)的形式读出。读出的值为对应I/O口的状态.0X0020对应PA5
 unsigned short m_key;
 unsigned short m_old_key = 0;
 unsigned short m_keytime = 0;
@@ -39,7 +39,7 @@ void touch_init( void )
 	//data引脚输入
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;;
-	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPD;
+	GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPD;//下拉
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
@@ -59,11 +59,11 @@ unsigned short touch_get( void )
 	for( i = 0; i < 16; i++ )
 	{
 	  	value >>= 1;
-	  	CLK_WRITE(0);
+	  	CLK_WRITE(0);//PA6端口不变
 		DelayMicroSeconds(3);
-		CLK_WRITE(1);
+		CLK_WRITE(1);//PA6端口为1
 		DelayMicroSeconds(3);
-		if( DATA_READ ) value |= 0x8000;
+		if( DATA_READ ) value |= 0x8000;//获取按键的status
 	}
 	//最高四位数据永远为1010
 	if( (value & 0xF000) == 0xA000 )
@@ -123,11 +123,11 @@ void touch_process( void )
     //3.按键处理
     if( m_key > T_None )
     {
-        m_DevData.actived = ACTTIME;
-        m_DevData.devtim_5min = ESCTIME;
-        m_DevData.blink = BLINK_TIME;
+        m_DevData.actived = ACTTIME;//检测状态//背光时间180秒
+        m_DevData.devtim_5min = ESCTIME;//无操作自动退出时间60秒
+        m_DevData.blink = BLINK_TIME;//背光时间60s
         //3.1.背光关闭先点亮背光
-        if( (m_DevData.lcdonoff == 0) && (m_RunData.runmode > 0) )
+        if( (m_DevData.lcdonoff == 0) && (m_RunData.runmode > 0) )//m_RunData.runmode--//当前运行模式    lcdonoff;       //背光关闭
         {
             m_key = T_None;
             m_DevData.lcdonoff = 1;

@@ -22,7 +22,7 @@
 @REM but they are listed at the end of this file for reference.
 
 
-"D:\IAR\common\bin\cspybat" "D:\IAR\arm\bin\armproc.dll" "D:\IAR\arm\bin\armsim2.dll"  %1 --plugin "D:\IAR\arm\bin\<libsupport_plugin>" --backend -B "--endian=little" "--cpu=Cortex-M3" "--fpu=None" "-p" "D:\IAR\arm\CONFIG\debugger\ST\iostm32f10xxB.ddf" "--semihosting" "--device=STM32F10xx8" "-d" "sim" 
+"D:\IAR\common\bin\cspybat" "D:\IAR\arm\bin\armproc.dll" "D:\IAR\arm\bin\armjlink.dll"  %1 --plugin "D:\IAR\arm\bin\<libsupport_plugin>" --flash_loader "D:\IAR\arm\config\flashloader\ST\FlashSTM32F10xx8.board" --backend -B "--endian=little" "--cpu=Cortex-M3" "--fpu=None" "-p" "D:\IAR\arm\CONFIG\debugger\ST\iostm32f10xxB.ddf" "--drv_verify_download" "--semihosting" "--device=STM32F10xx8" "-d" "jlink" "--drv_communication=USB0" "--jlink_speed=auto" "--jlink_initial_speed=32" "--jlink_reset_strategy=0,0" "--jlink_interface=SWD" 
 
 
 @REM Loaded plugins:

@@ -103,7 +103,7 @@ etError tm1650_WriteDisplay(unsigned char id, unsigned char addr, unsigned char 
 	// write a stop condition
 	I2c_StopCondition( id );
 
-    return error;
+    return error; 
 }
 
 // =============(C) COPYRIGHT 2017 杭州卡丽智能科技股份有限公司=================

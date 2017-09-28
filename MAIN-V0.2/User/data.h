@@ -72,7 +72,9 @@ struct RunData
 	unsigned short  co2;				//CO2数值，0位小数	
 	unsigned short  tvoc;				//tvoc数值，0位小数	
 	unsigned short  signal;				//wifi强度，0位小数	
+	
 	unsigned short  runmode;			//当前运行模式
+	
 	unsigned short  filter;				//滤芯剩余百分比
 	unsigned int	totaltime;			//风机运行总时间
 	unsigned int	level1time;			//一档运行总时间

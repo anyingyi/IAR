@@ -53,13 +53,14 @@ const unsigned short m_Gamut[4][4] = { {3040, 0   , 0   , 0    },     //一阶音
                                        {200 , 3040, 0   , 0    },     //二阶音
                                        {200 , 120 , 3040, 0    },     //三阶音
                                        {200 , 120 , 120 , 3040 } };   //四阶音
+ //freq = m_Pitch8[m_Music[musicid].sound[0]];//
 //和旋音调
 typedef struct CMUSIC_t
 {
     unsigned char   gamut;         //音阶
     unsigned char   sound[4];      //音谱
 }CMUSIC;
-
+  // mBUZZER_TIME[id].ftime = m_Gamut[m_Music[musicid].gamut-1][0];;
 const CMUSIC m_Music[MUSICS_MAX] = { GAMUT_4, {PITCH_1, PITCH_3, PITCH_5, PITCH_i },     //135i
                                      GAMUT_4, {PITCH_i, PITCH_5, PITCH_3, PITCH_1 },     //135i
                                      GAMUT_3, {PITCH_6, PITCH_4, PITCH_2, PITCH_X },
@@ -95,6 +96,7 @@ void buzzer_init(void)
 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;;
 		GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
 		GPIO_Init(mBUZZERCTRL[i].PGPIOx, &GPIO_InitStructure);
+		
 		GPIO_InitStructure.GPIO_Pin = mBUZZERCTRL[i].FGPIO_Pin;
 		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;;
 		GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_Out_PP;
@@ -154,9 +156,9 @@ void buzzer_on(unsigned char id, unsigned char musicid )
     unsigned int freq = 0;
     
     //1.运行参数设定
-    mBUZZER_TIME[id].onoff = 1;
-    mBUZZER_TIME[id].fonoff = 0;
-    mBUZZER_TIME[id].musicid = musicid;
+    mBUZZER_TIME[id].onoff = 1;   //BUZZER状态:0x00-不响,0x01-响
+    mBUZZER_TIME[id].fonoff = 0;   //BUZZER状态:0x00-不响,0x01-响
+    mBUZZER_TIME[id].musicid = musicid;//BUZZER谱序号
     mBUZZER_TIME[id].findex = 0;
     mBUZZER_TIME[id].vindex = 0;
     mBUZZER_TIME[id].vonoff = 0;
@@ -167,13 +169,15 @@ void buzzer_on(unsigned char id, unsigned char musicid )
     //3.频率计算和加载
     freq = m_Pitch8[m_Music[musicid].sound[0]];
     freq = (unsigned int)(500000/freq+0.5)-1;
-    TIM_SetAutoreload( TIM2, freq );
+	    //改变arr定时中断原来是0.1ms，现在变为、、、、--TIM1和TIM2
+    TIM_SetAutoreload( TIM2, freq );//TIM_SetAutoreloar，修改ARR值。TIM_SetCounter,修改CNT值。
+	          //cnt计数器寄存器（当前值寄存器），arr自动装载寄存器，psc预分频寄存器
     TIM_Cmd(TIM2, ENABLE);  
 }
 
 /*******************************************************************************
 * 函数名称  : buzzer_freqoff
-* 描    述  : 蜂鸣器关闭
+* 描    述  : 蜂鸣器频率关闭
 * 输    入  : None
 * 输    出  : None
 * 返    回  : None
@@ -213,7 +217,7 @@ void buzzer_single( unsigned char id )
                 mBUZZER_TIME[id].ftime = m_Gamut[gamut-1][index1];
                 //1.1.1.2.频率计算和加载
                 freq = m_Pitch8[m_Music[idm].sound[index1]];
-                freq = (unsigned int)(500000/freq+0.5)-1;
+                freq = (unsigned int)(500000/freq+0.5)-1;//翻转时用一半的周期，为除以2
                 TIM_SetAutoreload( TIM2, freq );
             }
             else
@@ -236,14 +240,14 @@ void buzzer_single( unsigned char id )
                 if( !mBUZZER_TIME[id].vonoff )
                 {
                     mBUZZER_TIME[id].vonoff = 1;
-                    mBUZZER_TIME[id].vtime = VTIME_ON;
+                    mBUZZER_TIME[id].vtime = VTIME_ON;//40
                     GPIO_SetBits(mBUZZERCTRL[id].PGPIOx, mBUZZERCTRL[id].PGPIO_Pin);    
                 }
                 //1.2.1.2.原来开启现需要关闭
                 else 
                 {
                     mBUZZER_TIME[id].vonoff = 0;
-                    mBUZZER_TIME[id].vtime = VTIME_OFF;
+                    mBUZZER_TIME[id].vtime = VTIME_OFF;//80
                     GPIO_ResetBits(mBUZZERCTRL[id].PGPIOx, mBUZZERCTRL[id].PGPIO_Pin); 
                     mBUZZER_TIME[id].vindex++;
                 }  
